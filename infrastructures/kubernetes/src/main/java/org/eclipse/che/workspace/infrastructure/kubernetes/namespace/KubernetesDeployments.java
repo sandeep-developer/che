@@ -125,6 +125,7 @@ public class KubernetesDeployments {
     ObjectMeta metadata = pod.getMetadata();
     PodSpec podSpec = pod.getSpec();
     podSpec.setRestartPolicy("Always"); // Only allowable value
+    podSpec.getContainers().forEach(c->c.setImagePullPolicy("IfNotPresent"));
     try {
       Deployment deployment =
           clientFactory
